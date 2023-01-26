@@ -11,17 +11,32 @@ export class BasicosComponent implements OnInit {
 
   @ViewChild('myForm') myForm!: NgForm;
 
+  initForm = {
+    producto: "Tomates",
+    precio: 2.50,
+    existencias: 1
+
+  }
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
-  notValidName(): boolean{
-    return this.myForm?.controls['producto']?.invalid &&
-      this.myForm?.controls['producto']?.touched
+  notValid(campo: string): boolean{
+    return this.myForm?.controls[campo]?.invalid &&
+      this.myForm?.controls[campo]?.touched
   }
-  save(myForm: NgForm) {
-    console.log(myForm);
+
+  
+  save() {
+    
+    // this.myForm.resetForm() Vacía todos los campos del formulario
+    this.myForm.resetForm({
+      producto: "Patatas",
+      precio: 100,
+      existencias: 24
+    })
 
   }
 
