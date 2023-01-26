@@ -4,9 +4,7 @@
 <div class="row">
     <div class="col">
 
-        <form (ngSubmit)="guardar()"
-              #miFormulario="ngForm"
-              autocomplete="off">
+        <form (ngSubmit)="save(myForm)" #myForm="ngForm">
             
             <!-- Campo de producto -->
             <div class="mb-3 row">
@@ -19,9 +17,14 @@
                     
                     <input type="text"
                            class="form-control"
-                           placeholder="Nombre del producto">
-
-                    <span class="form-text text-danger">
+                           placeholder="Nombre del producto"
+                           ngModel
+                           name="producto"
+                           minlength="3"
+                           required>
+                            
+                    <span class="form-text text-danger" 
+                          *ngIf="notValidName()">
                         Debe de ser de 3 letras
                     </span>
                 </div>
@@ -40,7 +43,11 @@
                     <input type="number"
                            class="form-control"
                            placeholder="Precio del producto"
-                           required>
+                           ngModel 
+                           name="precio"
+                           min="0"
+                           required
+                           >
                 </div>
             </div>
 
@@ -50,7 +57,11 @@
                 <div class="col-sm-9">
                     <input type="number"
                            class="form-control"
-                           placeholder="Existencias del producto">
+                           placeholder="Existencias del producto"
+                           ngModel
+                           name="existencias"
+                           min="0"
+                           required>
                 </div>
             </div>
 
@@ -67,6 +78,18 @@
 
 
         </form>
+
+        <span>Valid</span>
+        <pre>{{myForm.valid}}</pre>
+
+        <span>Pristine</span>
+        <pre>{{myForm.pristine}}</pre>
+
+        <span>Touched</span>
+        <pre>{{myForm.touched}}</pre>
+
+        <span>Value</span>
+        <pre>{{myForm.value | json}}</pre>
 
     </div>
 </div>

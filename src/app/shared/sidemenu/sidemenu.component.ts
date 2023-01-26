@@ -31,7 +31,7 @@ export class SidemenuComponent {
     {
       texto: 'Switches',
       ruta: './template/switches'
-    },
+    }
   ];
 
   reactiveMenu: MenuItem[] = [
