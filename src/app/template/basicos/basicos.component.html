@@ -3,8 +3,8 @@
 
 <div class="row">
     <div class="col">
-
-        <form (ngSubmit)="save(myForm)" #myForm="ngForm">
+                                  <!-- - ESTA ETIQUETA SE USA COMO UNA VARIABLE - -->
+        <form (ngSubmit)="save()" #myForm="ngForm" autocapitalize="on" autocomplete="off">
             
             <!-- Campo de producto -->
             <div class="mb-3 row">
@@ -18,7 +18,7 @@
                     <input type="text"
                            class="form-control"
                            placeholder="Nombre del producto"
-                           ngModel
+                           [ngModel]="initForm.producto"
                            name="producto"
                            minlength="3"
                            required>
@@ -30,12 +30,6 @@
                 </div>
             </div>
 
-
-
-
-
-
-
             <!-- Campo de producto -->
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Precio</label>
@@ -43,11 +37,15 @@
                     <input type="number"
                            class="form-control"
                            placeholder="Precio del producto"
-                           ngModel 
+                           [ngModel]="initForm.precio" 
                            name="precio"
                            min="0"
-                           required
-                           >
+                           max="32767"
+                           required>
+                    <span class="form-text text-danger" 
+                        *ngIf="notLessThan0('precio')">
+                        Debe de ser mayor que 0 pero menor que 32767
+                    </span>
                 </div>
             </div>
 
@@ -58,17 +56,22 @@
                     <input type="number"
                            class="form-control"
                            placeholder="Existencias del producto"
-                           ngModel
+                           [ngModel]="initForm.existencias"
                            name="existencias"
                            min="0"
+                           max="32767"
                            required>
+                        <span class="form-text text-danger" 
+                        *ngIf="notLessThan0('existencias')">
+                           Debe de ser mayor que 0 pero menor que 32767
+                        </span>
                 </div>
             </div>
 
 
             <div class="row">
                 <div class="col">
-                    <button type="submit"
+                    <button [disabled]="myForm.invalid" type="submit"
                             class="btn btn-primary float-end">
                         Guardar
                     </button>
@@ -79,9 +82,11 @@
 
         </form>
 
+
+        <!--
         <span>Valid</span>
         <pre>{{myForm.valid}}</pre>
-
+        
         <span>Pristine</span>
         <pre>{{myForm.pristine}}</pre>
 
@@ -90,7 +95,7 @@
 
         <span>Value</span>
         <pre>{{myForm.value | json}}</pre>
-
+        -->
     </div>
 </div>
 

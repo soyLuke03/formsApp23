@@ -1,23 +1,51 @@
 <h2>Template: <small> Dinámicos </small></h2>
 <hr>
 
-<form (ngSubmit)="save()" autocomplete="off">
+<form (ngSubmit)="save()" #myForm="ngForm" autocomplete="off">
    
     <!-- Nombre -->
     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
-            <input class="form-control"
-                   placeholder="Nombre de la persona">
-                <span class="form-text text-danger">
-                   Este campo es obligatorio
+            <input type="text"
+                   class="form-control"
+                   placeholder="Nombre de la persona"
+                   name="nombre"
+                   [ngModel]="persona.nombre"
+                   required
+                   minlength="3">
+
+                <span *ngIf="notValidName()" class="form-text text-danger">
+                   Este campo debe contener 3 caracteres
                </span>
         </div>
     </div>
 
+
+    <!-- Añadir favorito -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+            <div  class="input-group">
+                <input class="form-control" name="newFavorite" [(ngModel)]="newFavorite" placeholder="Agregar favorito">
+
+                <button (click)="add(newFavorite)" class="btn btn-outline-primary" type="button">
+                    Agregar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div *ngFor="let favorito of persona.favoritos; let i = index" class="input-group mb-1">
+            <input name="favorito {{ i }}" [(ngModel)]="favorito.nombre" class="form-control">
+            <button class="btn btn-outline-danger" (click)="delete(i)" type="button">Eliminar</button>
+        </div>
+
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
-            <button type="button"
+            <button [disabled]="myForm.invalid" type="submit"
                     class="btn btn-primary float-end">
                 Guardar
             </button>

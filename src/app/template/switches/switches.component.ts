@@ -1,4 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+
+interface Persona {
+  genero: string;
+  notificaciones: boolean
+}
 
 @Component({
   selector: 'app-switches',
@@ -7,6 +13,20 @@ import { Component } from '@angular/core';
   ]
 })
 export class SwitchesComponent  {
+  @ViewChild("miFormulario") myForm!: NgForm;
+
+  terminosYCondiciones:boolean = false;
+  persona:Persona = {
+    genero: "",
+    notificaciones: false
+  }
+
+
+
+  save() {
+    console.log(this.myForm.controls)
+    this.myForm.resetForm()
+  }
 
 
 
