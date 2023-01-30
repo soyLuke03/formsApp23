@@ -23,9 +23,9 @@ export class BasicosComponent implements OnInit {
     
   }
 
-  notValidName(): boolean{
-    return this.myForm?.controls['producto']?.invalid &&
-      this.myForm?.controls['producto']?.touched
+  notValid(campo: string): boolean{
+    return this.myForm?.controls[campo]?.invalid &&
+      this.myForm?.controls[campo]?.touched
   }
 
   notLessThan0(campo:string): boolean{

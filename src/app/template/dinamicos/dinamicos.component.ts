@@ -62,4 +62,6 @@ export class DinamicosComponent implements OnInit{
       this.newFavorite="";
     }
   }
+
+
 }
